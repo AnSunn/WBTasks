@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+</head>
+<body>
+<h1>Order Details</h1>
+<form method="get" action="/get">
+    <label for="orderUID">OrderUID:</label>
+    <input type="text" id="orderUID" name="orderUID" required>
+    <button type="submit">Get Order</button>
+</form>
+{{ if .HasValue }}
+<h2>Order Information:</h2>
+<pre id="formattedJson"></pre>
+<script>
+    const order = {{ .Data }}
+    const orderModalBody = document.getElementById('formattedJson');
+    orderModalBody.textContent = JSON.stringify(order, null, 2);
+
+</script>
+{{ else }}
+<p>No information available for the provided OrderUID.</p>
+{{ end }}
+</body>
+</html>
+

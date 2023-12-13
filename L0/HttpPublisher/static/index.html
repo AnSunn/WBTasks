@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Sender</title>
+</head>
+<body>
+<h1>JSON Sender</h1>
+
+<form id="jsonForm">
+    <label for="jsonInput">Enter JSON:</label>
+    <textarea id="jsonInput" rows="4" cols="50"></textarea>
+
+    <button type="button" onclick="sendJSON()">Send JSON</button>
+</form>
+
+<script>
+    function sendJSON() {
+        // Получаем JSON из текстового поля
+        var jsonInput = document.getElementById("jsonInput").value;
+
+        // Отправляем JSON на сервер
+        fetch("http://localhost:8080/publish", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: jsonInput,
+        })
+            .then(response => response.text())
+            .then(data => alert(data)) // Выводим ответ от сервера (можете заменить на другую обработку)
+            .catch(error => console.error("Error:", error));
+    }
+</script>
+</body>
+</html>
